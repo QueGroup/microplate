@@ -1,10 +1,10 @@
-<h2 align="center">🚀 Backend service template 🚀</h2>
+<h2 align="center">🚀 {{cookiecutter.project_name}} 🚀</h2>
 
 ______________________________________________________________________
 
 ## 🧐 About
 
-The good project template
+{{cookiecutter.description}}
 
 ______________________________________________________________________
 
@@ -12,22 +12,19 @@ ______________________________________________________________________
 
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)\
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+______________________________________________________________________
 
 ## 📚 Documentation
 
-...
+📄 The full documentation you can find by the path [`docs/`](./docs/)
 
 ______________________________________________________________________
 
 ## 🤝 Contributing
 
-...
+Find the instructions for contributing in the [Contributing Guide](./docs/CONTRIBUTING.md)
 
 ______________________________________________________________________
-
-## Questions on Implementation or Usage?
-
-Join the conversation in our community on Discord
 
 ## 📜 License
 

@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+  postgres-dev-db:
+    image: postgres:15.3-alpine
+    ports:
+      - "5436:5432"
+    restart: always
+    volumes:
+      - ./postgres:/var/lib/postgresql
+    env_file:
+      - ../.env
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1GB
+    networks:
+      - custom
+  alembic:
+    build: ../..
+    env_file:
+      - '../.env'
+    depends_on:
+      postgres-dev-db:
+        condition: service_healthy
+    networks:
+      - custom
+    command: alembic upgrade head
+  redis-dev-db:
+    image: redis:7.0-alpine
+    ports:
+      - "6380:6379"
+    restart: always
+    volumes:
+      - ./redis:/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL", "redis-cli ping"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512MB
+    networks:
+      - custom
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  custom:
+    driver: bridge

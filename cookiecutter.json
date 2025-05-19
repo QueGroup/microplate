@@ -1,0 +1,16 @@
+{
+  "project_name": "Your project name",
+  "description": "Your new great project",
+  "project_slug": "default_slug",
+  "version": "Your project version",
+  "modules": "example",
+  "author": "Root",
+  "include_sync_api": [
+    "yes",
+    "no"
+  ],
+  "include_async_api": [
+    "yes",
+    "no"
+  ]
+}

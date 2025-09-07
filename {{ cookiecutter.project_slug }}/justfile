@@ -1,0 +1,19 @@
+help:
+    @echo "  - lint               : Run linting checks 🔍"
+    @echo "  - test               : Run tests 🧪"
+    @echo "  - ht                 : Run load testing with Locust 🐛"
+
+lint:
+    @pre-commit run --all-files
+
+test:
+    @pytest tests
+
+ht:
+    @locust -f locustfile.py --headless --users 10 --spawn-rate 1 -H http://localhost:8000
+
+ps:
+    @docker ps
+
+create_env:
+    @cp .env.template .env

@@ -1,0 +1,84 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 'v4.6.0'
+    hooks:
+      - id: check-merge-conflict
+  - repo: https://github.com/asottile/yesqa
+    rev: v1.5.0
+    hooks:
+      - id: yesqa
+  - repo: https://github.com/PyCQA/isort
+    rev: '5.13.2'
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: '24.8.0'
+    hooks:
+      - id: black
+        language_version: python3
+        args: [ "--skip-string-normalization" ]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 'v4.6.0'
+    hooks:
+      - id: end-of-file-fixer
+        exclude: >-
+          ^docs/[^/]*\.svg$
+      - id: trailing-whitespace
+      - id: file-contents-sorter
+        args: [ '--ignore-case' ]
+        files: |
+          CONTRIBUTORS.txt|
+          docs/spelling_wordlist.txt|
+          .gitignore|
+          .gitattributes
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-xml
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-executables-have-shebangs
+      - id: debug-statements
+      - id: check-added-large-files
+      - id: check-symlinks
+      - id: fix-byte-order-marker
+      - id: detect-aws-credentials
+        args: [ '--allow-missing-credentials' ]
+      - id: detect-private-key
+        exclude: ^examples/
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+        args: ["--ignore-words-list", "fo,te"]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
+        language: system
+        args: [ --follow-imports=silent, --disable-error-code=no-untyped-call,
+                --explicit-package-bases, --strict ]
+        exclude: tests/
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.6.6"
+    hooks:
+      - id: ruff
+        args: [ "--select=Q", "--fix" ]
+  - repo: https://github.com/AleksaC/hadolint-py
+    rev: v2.12.1b3
+    hooks:
+      - id: hadolint
+        args: [ --ignore, DL3025, --ignore, DL3018 ]
+  - repo: https://github.com/python-openapi/openapi-spec-validator
+    rev: 0.5.5
+    hooks:
+      - id: openapi-spec-validator
